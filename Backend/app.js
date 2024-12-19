@@ -42,10 +42,10 @@ app.use('/api/posts',postrouter)
 
 app.get('/api/logout',(req,res)=>{
     try {
-        res.cookie('token', '', {
-            httpOnly: true,    // Include if this was set when creating the cookie
-            secure: true,      // Include if you are serving over HTTPS
-            sameSite: 'Strict', // Match the original cookie settings
+        res.cookie('token', 'ggg', {
+            httpOnly: true,  
+                secure: true,    
+                sameSite: 'none', // Match the original cookie settings
             expires: new Date(0), // Expire immediately
         });
        
