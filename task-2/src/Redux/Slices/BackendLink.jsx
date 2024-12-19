@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const BackendLink = createSlice({
     name:'backend',
     initialState:{
-        url:"http://localhost:8000"
+        url:"https://mern-task-2-460x.onrender.com"
     },
     reducers:{
         getLink:(state)=>{
