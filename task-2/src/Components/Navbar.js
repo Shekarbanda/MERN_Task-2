@@ -54,7 +54,7 @@ export default function Navbar() {
         const logout = await axios.get(`${url}/api/logout`, { withCredentials: true }); 
         if (logout.data.success) {
             toast.success(logout.data.message);
-            navigate('/signin');
+            navigate('/login');
         }
     } catch (err) {
         toast.error(err.message);

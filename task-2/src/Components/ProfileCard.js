@@ -42,13 +42,9 @@ const nav = useNavigate();
 
   async function logouthandler() {
     try {
-        const logout = await axios.get(`${url}/api/logout`);
-        
+        const logout = await axios.get(`${url}/api/logout`, { withCredentials: true }); 
         if (logout.data.success) {
             toast.success(logout.data.message);
-            document.cookie.split(";").forEach((c) => {
-                document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-            });
             navigate('/login');
         }
     } catch (err) {
