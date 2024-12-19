@@ -27,7 +27,7 @@ export default function Navbar() {
       setuser(isuser);
       // Set the image src initially to the user's profile image or a default image
       if (isuser?.profile) {
-        setImgSrc(`http://localhost:8000${isuser?.profile}`);
+        setImgSrc(`https://mern-task-2-460x.onrender.com${isuser?.profile}`);
       } else {
         setImgSrc(p1); // Set the default image if the user doesn't have a profile image
       }

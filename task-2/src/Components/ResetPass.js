@@ -19,7 +19,7 @@ export default function ResetPass() {
 
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/user/reset-password/${token}`,
+        `https://mern-task-2-460x.onrender.com/api/user/reset-password/${token}`,
         { password }
       );
       toast.success(response.data.message);
