@@ -1,0 +1,157 @@
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    position: relative;
+  }
+  
+  .overlay {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+  }
+  
+  .popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 400px;
+    background: transparent;
+    
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    z-index: 1050;
+    animation: slideIn 0.5s ease-in-out;
+  }
+
+  .social{
+    border: 0.6px solid #D9D9DB;
+    font-size: 14px;
+  }
+  
+  .fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+    text-align: center;
+    background: white;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .link {
+    color: #0d6efd;
+    cursor: pointer;
+  }
+  
+  .link:hover {
+    text-decoration: underline;
+  }
+  .form-control{
+    background-color: #E9ECEF;
+    padding: 10px;
+    border: 2px solid #D9D9DB;
+    border-radius: 1px;
+  }
+  
+  @media screen and (min-width: 768px) {
+    .popup {
+      width: 736px;
+      max-width: 736px;
+      
+    }
+  }
+  
+.mobmsg{
+    display: none;
+}
+.resp{
+    width: 125%;
+}
+.subbtn{
+    width: 320px;
+}
+.smallp{
+    width: 320px;
+}
+.forgot{
+    display: none;
+    font-size: 11px;
+}
+.showmob{
+  display: none;
+  position: relative;
+  top: 0px;
+  width: 100%;
+}
+
+  @media screen and (max-width: 1000px) {
+    .popup {
+      width: 100%;
+      max-width: 1320px;
+      height: 100vh;
+      top:60vh;
+    }
+    .showmob{
+      display: inline;
+    }
+    .smlogin{
+        padding: 20px!important;
+      
+    }
+    .postcards{
+      width: 100%;
+  }
+    .forgot{
+        display: inline-block;
+    }
+  .reg{
+    display: none;
+  }
+  .resp{
+    
+    display: block;
+  }
+    .form-control {
+      font-size: 14px;
+    }
+    .logimg{
+        display: none;
+      }
+      .logimg1{
+        display: inline;
+      }
+      .smlogin{
+        flex-direction: column;
+      }
+      .smallp{
+        width: 100%!important;
+      }
+      .mobmsg{
+        width: 60%;
+        display: inline;
+        font-size: 12px;
+      }
+      .subbtn{
+        width: 40%;
+        font-size: 12px;
+      }
+  }
+  
+@media (min-width:700px) and (max-width:1000px){
+  .showmob{
+    width: auto;
+    display: block;
+    margin: auto;
+  }
+}
+  

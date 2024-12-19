@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
+
+.navbar{
+    max-width: 1440px;
+    height: 72px;
+}
+.searchbar{
+    width: 360px;
+    padding-left: 10px;
+    border: none;
+    background-color: #f2f2f2;
+    border-radius: 21px 21px 21px 21px;
+}
+.search{
+    width: 280px;
+    padding: 5px;
+    height: 42px;
+    border: none;
+    background-color: #f2f2f2;
+    border-radius: 0 21px 21px 0;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18.2px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+
+.search-icon{
+    padding-left: 7px;
+    padding-right: 15px;
+    
+}
+.btn{
+    margin-right: 72px;
+}
+
+.search:focus {
+    outline: none;
+    border: none;
+  }
+  
+.drop{
+    height: 24px;
+   
+    display: inline-block;
+    transform: scaleX(0.8) scaleY(0.4);
+}
+
+@media (max-width:1024px){
+    .navbar{
+        height: 68px;
+    }
+}

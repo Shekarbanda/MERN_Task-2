@@ -1,0 +1,80 @@
+/* Overlay fade-in effect */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease-out;
+    z-index: 999;
+  }
+  
+  /* Popup Styles */
+  .popup1 {
+    position: fixed;
+    width: 60%;
+    top: 50%;
+    left: 50%;
+    height: 70vh;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-out, transform 0.3s ease-out;
+  }
+  .edit{
+    border: none;
+    height: 54px;
+    width: 54px;
+    border: none;
+    background-color: blueviolet;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #FF5C5C 0%, #F0568A 100%);
+    position: fixed;
+    bottom: 30px;
+    z-index: 10000;
+    right: 30px;
+    display: none;
+}
+  /* Show popup */
+  .popup-show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  
+  /* Hide popup */
+  .popup-hide {
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  
+  /* Fade-in animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .popup1 {
+       width: 95%;
+        max-width: 1320px;
+        height: auto;
+        top: 50vh;
+    }
+}
+
+@media (max-width:990px){
+    .edit{
+        display: block;
+    }
+}
