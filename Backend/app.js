@@ -12,7 +12,7 @@ const userrouter = require('./Controllers/ProfileController')
 const postrouter = require('./Controllers/PostsController.js')
 
 const corsOptions = {
-    origin: "http://localhost:3000",
+    origin: "https://frontend-mern-task-2.onrender.com",
     credentials:true
 }
 app.use(cors(corsOptions))
