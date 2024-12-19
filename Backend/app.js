@@ -42,9 +42,12 @@ app.use('/api/posts',postrouter)
 
 app.get('/api/logout',(req,res)=>{
     try {
-       res.cookie('token', '', {
-              
-       });
+        res.cookie('token', '', {
+            httpOnly: true,    // Include if this was set when creating the cookie
+            secure: true,      // Include if you are serving over HTTPS
+            sameSite: 'Strict', // Match the original cookie settings
+            expires: new Date(0), // Expire immediately
+        });
        
        res.status(200).json({
            message: 'Logged out successfully',
