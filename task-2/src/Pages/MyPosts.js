@@ -24,7 +24,8 @@ export default function MyPosts() {
 
     useEffect(() => {
         is_login();
-      
+        // Check if token exists
+      const token = getCookie('token');
       
     }, []);
 
@@ -49,7 +50,12 @@ export default function MyPosts() {
         }
     }
 
-   
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
+      }
   return (
     <div className='w-100' style={{width:'100vw',height:'100vh'}}>
             <button className='edit' onClick={() => dispatch(iscreate(!create))}><img src={edit} /></button>

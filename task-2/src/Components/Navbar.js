@@ -51,14 +51,10 @@ export default function Navbar() {
 
   async function logouthandler() {
     try {
-        const logout = await axios.get(`${url}/api/logout`);
-        
+        const logout = await axios.get(`${url}/api/logout`, { withCredentials: true }); 
         if (logout.data.success) {
             toast.success(logout.data.message);
-            document.cookie.split(";").forEach((c) => {
-                document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-            });
-            navigate('/login');
+            navigate('/signin');
         }
     } catch (err) {
         toast.error(err.message);
