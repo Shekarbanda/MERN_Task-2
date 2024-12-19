@@ -39,6 +39,7 @@ const [showPassword, setShowPassword] = useState(false);
             const user = login.data.user;
             
             toast.success(`${login.data.message} ${user.name}`);
+            localStorage.setItem('name', user.name);
             navigate('/');
           }
           else {

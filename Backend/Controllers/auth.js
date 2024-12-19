@@ -136,6 +136,11 @@ async function login_controller(req,res){
         if(is_user){
             const token = jwt.sign({name:name},secretcode);
             res.cookie('token',token);
+            res.cookie('token', token, {
+                httpOnly: true,  
+                secure: true,    
+                sameSite: 'none',
+             });
             res.status(200).json({
                 message:"Welcome ",
                 user:user_data,

@@ -30,8 +30,6 @@ export default function Home() {
 
     useEffect(() => {
         is_login();
-        // Check if token exists
-      const token = getCookie('token');
       
     }, []);
 
@@ -56,12 +54,7 @@ export default function Home() {
         }
     }
 
-    function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-        return null;
-      }
+   
       
 
   return (
