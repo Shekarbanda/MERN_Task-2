@@ -63,6 +63,8 @@ export default function CreatePost() {
       toast.success("Post Successfully Created");
       closePopup();
       nav('/')
+      setTitle("");
+      setContent("");
       dispatch(islogin(true));
 
     } catch (error) {
