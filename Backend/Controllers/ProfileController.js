@@ -5,7 +5,7 @@ const app = express()
 const path = require('path');
 const User = require('../Models/UserModel');
 const cookieParser = require('cookie-parser');
-
+const Post = require('../Models/AllPosts');
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
@@ -85,6 +85,31 @@ router.post('/editprofile', upload.single('profile'), async (req, res) => {
     if (!updatedUser) {
       return res.status(404).json({ message: 'User not found.' });
     }
+
+    const postUpdateData = {};
+    if (name) postUpdateData['author.name'] = name;
+    if (req.file) postUpdateData.authorImage = `/Uploaded_Images/${req.file.filename}`;
+
+    // Update posts where the user is the author
+    await Post.updateMany(
+      { 'author._id': id },
+      { $set: postUpdateData }
+    );
+
+    if (name || req.file) {
+      const posts = await Post.find({ 'comments.userId': id });
+      for (const post of posts) {
+        post.comments = post.comments.map((comment) => {
+          if (comment.userId.toString() === id) {
+            if (name) comment.userName = name;
+            if (req.file) comment.userImage = `/Uploaded_Images/${req.file.filename}`;
+          }
+          return comment;
+        });
+        await post.save();
+      }
+    }
+
     if (updatedUser) {
       const token = jwt.sign({ name: name }, secretcode);
       res.cookie('token', token);
