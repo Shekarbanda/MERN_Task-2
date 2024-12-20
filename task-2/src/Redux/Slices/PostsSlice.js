@@ -11,10 +11,10 @@ const PostsSlice = createSlice({
   initialState,
   reducers: {
     setallp: (state, action) => {
-      state.allp = action.payload; // Set the updated post data
+      state.allp = action.payload; 
     },
     setmyp: (state, action) => {
-        state.myp = action.payload; // Set the updated post data
+        state.myp = action.payload; 
       },
   },
 });

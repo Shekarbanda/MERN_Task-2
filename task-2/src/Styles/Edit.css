@@ -1,4 +1,4 @@
-/* Overlay fade-in effect */
+
 .overlay {
     position: fixed;
     top: 0;
@@ -9,8 +9,7 @@
     animation: fadeIn 0.3s ease-out;
     z-index: 999;
   }
-  
-  /* Popup Styles */
+
   .popup1 {
     position: fixed;
     width: 60%;
@@ -40,21 +39,19 @@
     right: 30px;
     display: none;
 }
-  /* Show popup */
   .popup-show {
     opacity: 1;
     visibility: visible;
     transform: translate(-50%, -50%) scale(1);
   }
   
-  /* Hide popup */
+
   .popup-hide {
     opacity: 0;
     visibility: hidden;
     transform: translate(-50%, -50%) scale(0.95);
   }
   
-  /* Fade-in animation */
   @keyframes fadeIn {
     from {
       opacity: 0;

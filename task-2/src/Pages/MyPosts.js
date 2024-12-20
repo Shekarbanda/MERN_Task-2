@@ -20,12 +20,12 @@ export default function MyPosts() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const create = useSelector((state) => state.create.value);
-    const isuser = useSelector((state)=>state.user.value);
+    const isuser = useSelector((state) => state.user.value);
 
     useEffect(() => {
         is_login();
-      
-      
+
+
     }, []);
 
     async function is_login() {
@@ -38,10 +38,10 @@ export default function MyPosts() {
             });
             if (!is_user.data.success) {
                 navigate('/login');
-            
+
             } else {
                 dispatch(setuser(is_user.data.user));
-              
+
             }
         } catch (err) {
             navigate('/login');
@@ -49,17 +49,17 @@ export default function MyPosts() {
         }
     }
 
-   
-  return (
-    <div className='w-100' style={{width:'100vw',height:'100vh'}}>
+
+    return (
+        <div className='w-100' style={{ width: '100vw', height: '100vh' }}>
             <button className='edit' onClick={() => dispatch(iscreate(!create))}><img src={edit} /></button>
-            <Navbar/>
-            <MyPostMenu/>
-            <ProfileEdit/>
-            <CreatePost/>
-            <EditPost/>
-            <Posts myposts={true}/>
-            <Footer/>
+            <Navbar />
+            <MyPostMenu />
+            <ProfileEdit />
+            <CreatePost />
+            <EditPost />
+            <Posts myposts={true} />
+            <Footer />
         </div>
-  )
+    )
 }

@@ -13,19 +13,19 @@ export default function EditPost() {
   const [showPopup, setShowPopup] = useState("");
   const count = useSelector((state) => state.edit.value);
   const dispatch = useDispatch();
-  const url = useSelector((state)=>state.backend.url);
-  
-  const editPost = useSelector((state) => state.editpost?.value);
-  const isuser = useSelector((state)=>state.user.value);
-    const [user,setuser] = useState(null);
+  const url = useSelector((state) => state.backend.url);
 
-    
+  const editPost = useSelector((state) => state.editpost?.value);
+  const isuser = useSelector((state) => state.user.value);
+  const [user, setuser] = useState(null);
+
+
 
   const [formData, setFormData] = useState({
     title: editPost?.title || "",
     content: editPost?.content || "",
-    type: editPost?.type || "Article", // Default value is set to 'Article'
-    image: editPost?.image || null, // Initialize image with the current image or null
+    type: editPost?.type || "Article",
+    image: editPost?.image || null,
   });
 
   const handleInputChange = (e) => {
@@ -39,7 +39,7 @@ export default function EditPost() {
   const handleImageChange = (e) => {
     setFormData((prevData) => ({
       ...prevData,
-      image: e.target.files[0], // Store the file object
+      image: e.target.files[0],
     }));
   };
 
@@ -50,7 +50,7 @@ export default function EditPost() {
     data.append("content", formData.content);
     data.append("type", formData.type);
 
-    // Only append the image if it exists (file is uploaded)
+
     if (formData.image) {
       data.append("image", formData.image);
     }
@@ -58,13 +58,12 @@ export default function EditPost() {
     try {
       const response = await axios.put(`${url}/api/posts/update/${editPost._id}`, data, {
         headers: {
-          "Content-Type": "multipart/form-data", // Required for file uploads
+          "Content-Type": "multipart/form-data",
         },
       });
 
       toast.success("Post updated successfully!");
       dispatch(setallp(response.data.posts))
-      // Close the popup after successful update
       closePopup();
     } catch (error) {
       console.error("Error updating post:", error);
@@ -74,19 +73,19 @@ export default function EditPost() {
   };
 
   const fetchPosts = async () => {
-    
-  try {
-    const response = await axios.post(`${url}/api/posts/myposts`, {
-        userId: user?._id,
-      }); // Replace with your backend URL
-    dispatch(setmyp(response.data.posts));
 
-  } catch (err) {
-    console.log(err)
-    toast.error("Error fetching posts");
- 
-  }
-};
+    try {
+      const response = await axios.post(`${url}/api/posts/myposts`, {
+        userId: user?._id,
+      });
+      dispatch(setmyp(response.data.posts));
+
+    } catch (err) {
+      console.log(err)
+      toast.error("Error fetching posts");
+
+    }
+  };
 
   const openPopup = (type) => setShowPopup(type);
 
@@ -95,18 +94,17 @@ export default function EditPost() {
     setShowPopup("");
   };
 
-  // Update form data when editPost changes
   useEffect(() => {
     if (count) openPopup("edit");
     setuser(isuser)
-    
+
     setFormData({
       title: editPost?.title || "",
       content: editPost?.content || "",
-      type: editPost?.type || "Article", // Default 'Article' if no type
-      image: editPost?.image || null, // Initialize with current image or null
+      type: editPost?.type || "Article",
+      image: editPost?.image || null,
     });
-  }, [count, editPost,isuser]);
+  }, [count, editPost, isuser]);
 
   return (
     <div className="container" style={{ zIndex: "20000" }}>
@@ -128,10 +126,10 @@ export default function EditPost() {
                 <select
                   style={{ height: '50px', fontSize: '15px' }}
                   className="w-100 mb-2 filter cursor-pointer"
-                  name="type" // Bind the type state with the 'name' attribute
-                  value={formData.type} // Bind 'type' state
+                  name="type"
+                  value={formData.type}
                   required
-                  onChange={handleInputChange} // Handle change
+                  onChange={handleInputChange}
                 >
                   <option value="" disabled>Select Post Type</option>
                   <option value="Article">✍️ Article</option>
@@ -144,9 +142,9 @@ export default function EditPost() {
                   className="form-control w-100 mb-2"
                   name="title"
                   placeholder="Enter Title"
-                  value={formData.title} // Bind title state
+                  value={formData.title}
                   required
-                  onChange={handleInputChange} // Handle title change
+                  onChange={handleInputChange}
                 />
 
                 <textarea
@@ -155,8 +153,8 @@ export default function EditPost() {
                   name="content"
                   placeholder="Enter Content"
                   required
-                  value={formData.content} // Bind content state
-                  onChange={handleInputChange} // Handle content change
+                  value={formData.content}
+                  onChange={handleInputChange}
                 />
 
                 <div className="position-relative">
@@ -165,7 +163,7 @@ export default function EditPost() {
                     type="file"
                     id="pic"
                     className="form-control mb-4 p-2"
-                    onChange={handleImageChange} // Handle image change
+                    onChange={handleImageChange}
                   />
                 </div>
 

@@ -13,110 +13,109 @@ export default function ProfileEdit() {
   const [showPopup, setShowPopup] = useState("");
   const count = useSelector((state) => state.check.value);
   const dispatch = useDispatch();
-  const url = useSelector((state)=>state.backend.url);
-    const user = useSelector((state)=>state.user.value);
-    const [id,setid] = useState('');
+  const url = useSelector((state) => state.backend.url);
+  const user = useSelector((state) => state.user.value);
+  const [id, setid] = useState('');
 
-    useEffect(()=>{
-      setid(user?._id);
-      
-    },[user])
+  useEffect(() => {
+    setid(user?._id);
+
+  }, [user])
 
   const [load, setLoad] = useState(false);
 
 
-    const [formData, setFormData] = useState({
-        id:id,
-        name: '',
-        profession:'',
-        city:'',
-        profile: null,
+  const [formData, setFormData] = useState({
+    id: id,
+    name: '',
+    profession: '',
+    city: '',
+    profile: null,
+  });
+
+  const initialFormData = {
+    id: id,
+    name: '',
+    profession: '',
+    city: '',
+    profile: null,
+  };
+
+  useEffect(() => {
+    if (user && user._id) {
+      setFormData({
+        ...formData,
+        id: user._id,
+      });
+    }
+  }, [user]);
+
+
+  const resetButtonRef = useRef();
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData({
+        ...formData,
+        profile: file,
+      });
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    setLoad(true);
+    e.preventDefault();
+
+    try {
+      const data = new FormData();
+      data.append('id', formData.id)
+      data.append('name', formData.name);
+      data.append('profession', formData.profession);
+      data.append('city', formData.city);
+
+      if (formData.profile) {
+        data.append('profile', formData.profile);
+      }
+
+      const response = await axios.post(`${url}/api/user/editprofile`, data, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+        withCredentials: true,
+      });
+
+      if (response.status === 200) {
+        setFormData(initialFormData);
+        if (resetButtonRef.current) {
+          resetButtonRef.current.click();
+        }
+        dispatch(setuser(response.data.user))
+        closePopup()
+        toast.success("Successfully Updated");
+
+      }
+      else {
+        closePopup()
+        toast.error("Failed to Update");
+      }
+    } catch (error) {
+      alert(error);
+    } finally {
+      setLoad(false);
+    }
+  };
+
+
+
+  const handleChange = (e) => {
+    const { name, value, type } = e.target;
+
+    setFormData({
+      ...formData,
+      [name]: value,
     });
 
-    const initialFormData = {
-      id:id,
-      name: '',
-      profession:'',
-      city:'',
-      profile: null,
-    };
+  };
 
-    useEffect(() => {
-      if (user && user._id) {
-        setFormData({
-          ...formData,
-          id: user._id,
-        });
-      }
-    }, [user]);
-
-    
-    const resetButtonRef = useRef();
-
-    // Handle image selection and set as File object
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            setFormData({
-                ...formData,
-                profile: file, 
-            });
-        }
-    };
-
-    const handleSubmit = async (e) => {
-        setLoad(true);
-        e.preventDefault();
-
-        try {
-            const data = new FormData(); 
-            data.append('id',formData.id)
-            data.append('name', formData.name);
-            data.append('profession', formData.profession);
-            data.append('city', formData.city);
-            
-            if (formData.profile) {
-                data.append('profile', formData.profile); 
-            }
-
-            const response = await axios.post(`${url}/api/user/editprofile`, data, {
-                headers: { 'Content-Type': 'multipart/form-data' },
-                withCredentials: true,
-            });
-
-            if (response.status === 200) {
-                setFormData(initialFormData);
-                if (resetButtonRef.current) {
-                    resetButtonRef.current.click();
-                }
-                dispatch(setuser(response.data.user))
-                closePopup()
-                toast.success("Successfully Updated");
-             
-            } 
-            else {
-              closePopup()
-                toast.error("Failed to Update");
-            }
-        } catch (error) {
-            alert(error);
-        } finally {
-            setLoad(false);
-        }
-    };
-
-    
-
-    const handleChange = (e) => {
-        const { name, value, type} = e.target;
-    
-            setFormData({
-                ...formData,
-                [name]: value,
-            });
-        
-    };
-    
 
   const openPopup = (type) => setShowPopup(type);
 
@@ -131,12 +130,12 @@ export default function ProfileEdit() {
 
   return (
     <div className="container" style={{ zIndex: "20000" }}>
-      {/* Overlay with fade-in animation */}
+
       {showPopup && (
         <div className="overlay fade-in" onClick={closePopup}></div>
       )}
 
-      {/* Popup Content */}
+
       {showPopup === "edit" && (
         <div className={`popup1 ${showPopup ? "popup-show" : "popup-hide"}`}>
           <button
@@ -166,7 +165,7 @@ export default function ProfileEdit() {
                   className="form-control w-100 mb-2"
                   placeholder="city"
                   value={formData.city}
-                   name="city" onChange={handleChange} required
+                  name="city" onChange={handleChange} required
                 />
 
                 <input
@@ -177,14 +176,14 @@ export default function ProfileEdit() {
                   name="profession" onChange={handleChange} required
                 />
                 <div className="position-relative">
-                <label for='profile'>Upload Profile Pic</label>
+                  <label for='profile'>Upload Profile Pic</label>
                   <input
                     type="file"
                     id="profile"
                     className="form-control mb-4 p-2"
                     placeholder="Profile Pic"
                     required
-                    name="profile" onChange={handleImageChange} 
+                    name="profile" onChange={handleImageChange}
                   />
                 </div>
                 <div className="w-100 resp d-flex justify-content-between align-items-center mx-auto">

@@ -18,10 +18,6 @@ import Footer from '../Components/Footer';
 
 
 export default function Home() {
-    // const nav = useNavigate();
-    // useEffect(()=>{
-    //     nav('/signup')
-    // },[])
 
     const url = useSelector((state) => state.backend.url);
     const navigate = useNavigate();
@@ -31,7 +27,7 @@ export default function Home() {
     useEffect(() => {
         is_login();
 
-      
+
     }, []);
 
     async function is_login() {
@@ -44,10 +40,10 @@ export default function Home() {
             });
             if (!is_user.data.success) {
                 navigate('/login');
-            
+
             } else {
                 dispatch(setuser(is_user.data.user));
-              
+
             }
         } catch (err) {
             navigate('/login');
@@ -55,18 +51,18 @@ export default function Home() {
         }
     }
 
-   
-      
 
-  return (
-    <div className='w-100' style={{width:'100vw',height:'100vh'}}>
-        <button className='edit' onClick={() => dispatch(iscreate(!create))}><img src={edit} /></button>
-        <Navbar/>
-        <PostMenu/>
-        <ProfileEdit/>
-        <CreatePost/>
-        <Posts myposts={false}/>
-        <Footer/>
-    </div>
-  )
+
+
+    return (
+        <div className='w-100' style={{ width: '100vw', height: '100vh' }}>
+            <button className='edit' onClick={() => dispatch(iscreate(!create))}><img src={edit} /></button>
+            <Navbar />
+            <PostMenu />
+            <ProfileEdit />
+            <CreatePost />
+            <Posts myposts={false} />
+            <Footer />
+        </div>
+    )
 }
