@@ -21,7 +21,7 @@ async function is_login(req,res){
     if(token){
         jwt.verify(token,secretcode,async (err,decoded)=>{
             if(decoded){
-                email = decoded.name;
+                email = decoded.email;
                 const user_res = await user.findOne({email});
                 if(user_res){
                     res.status(200).json({
