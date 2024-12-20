@@ -25,8 +25,10 @@ export default function ForgotPass() {
     try {
       const response = await axios.post(`${url}/api/user/forgot-password`, { email });
       toast.success(response.data.message);
+      closePopup();
     } catch (error) {
       console.error("Error sending reset email:", error);
+      closePopup();
       toast.error("Failed to send reset email");
     } finally {
 

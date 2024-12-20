@@ -86,13 +86,13 @@ router.post('/editprofile', upload.single('profile'), async (req, res) => {
       return res.status(404).json({ message: 'User not found.' });
     }
 
+   
     const postUpdateData = {};
-    if (name) postUpdateData['author.name'] = name;
     if (req.file) postUpdateData.authorImage = `/Uploaded_Images/${req.file.filename}`;
 
-    // Update posts where the user is the author
+   
     await Post.updateMany(
-      { 'author._id': id },
+      { 'author': id }, 
       { $set: postUpdateData }
     );
 
@@ -101,8 +101,8 @@ router.post('/editprofile', upload.single('profile'), async (req, res) => {
       for (const post of posts) {
         post.comments = post.comments.map((comment) => {
           if (comment.userId.toString() === id) {
-            if (name) comment.userName = name;
-            if (req.file) comment.userImage = `/Uploaded_Images/${req.file.filename}`;
+            if (name) comment.userName = name; 
+            if (req.file) comment.userImage = `/Uploaded_Images/${req.file.filename}`; 
           }
           return comment;
         });
@@ -111,8 +111,6 @@ router.post('/editprofile', upload.single('profile'), async (req, res) => {
     }
 
     if (updatedUser) {
-      const token = jwt.sign({ name: name }, secretcode);
-      res.cookie('token', token);
       res.status(200).json({
         message: "Welcome ",
         user: updateData,
@@ -121,7 +119,6 @@ router.post('/editprofile', upload.single('profile'), async (req, res) => {
     }
 
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: 'Error updating profile', error });
   }
 });
@@ -138,8 +135,7 @@ const transporter = nodemailer.createTransport({
 
 router.post("/forgot-password", async (req, res) => {
   const { email } = req.body;
-  console.log(process.env.EMAIL_USER);
-  console.log(process.env.EMAIL_PASS)
+
   try {
 
     const user = await User.findOne({ email });
@@ -163,13 +159,11 @@ router.post("/forgot-password", async (req, res) => {
 
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
-        console.log(error)
         return res.status(500).json({ message: "Error sending email" });
       }
       res.status(200).json({ message: "Password reset email sent" });
     });
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: "Server error" });
   }
 });

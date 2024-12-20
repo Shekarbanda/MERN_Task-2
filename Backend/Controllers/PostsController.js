@@ -167,8 +167,6 @@ router.post('/comment/:postId', async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-
-    console.log(user.profile)
     const newComment = {
       userId,
       comment,
@@ -209,7 +207,7 @@ router.post('/myposts', async (req, res) => {
 router.put("/update/:id", upload.single("image"), async (req, res) => {
   const { id } = req.params;
   const { title, content, type } = req.body;
-  const image = req.file ? `/uploads/${req.file.filename}` : undefined;
+  const image = req.file ? `/Uploaded_Images/Post_Images/${req.file.filename}` : undefined;
 
   try {
     const updatedData = {
