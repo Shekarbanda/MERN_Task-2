@@ -244,10 +244,10 @@ export default function MyPostCard() {
                 {post?.comments && post?.comments.map((comment, index) => (
                   <div key={index} className="comment-item d-flex flex-column">
                     <div className="profile-section d-flex">
-                      <img src={p1} alt="Author" className="profile-image" />
-                      <span className="author-name">{post.author.name}</span>
+                      <img src={comment?.userImage ? `${url}${comment?.userImage}` : p1} alt="Author" className="profile-image" />
+                      <span className="author-name">{comment?.userName}</span>
                     </div>
-                    <span className="comment-text">{comment.comment}</span>
+                    <span className="comment-text">{comment?.comment}</span>
 
                   </div>
                 ))}
