@@ -21,8 +21,8 @@ async function is_login(req,res){
     if(token){
         jwt.verify(token,secretcode,async (err,decoded)=>{
             if(decoded){
-                name = decoded.name;
-                const user_res = await user.findOne({name});
+                email = decoded.name;
+                const user_res = await user.findOne({email});
                 if(user_res){
                     res.status(200).json({
                         message:"User Logged in",
@@ -134,7 +134,7 @@ async function login_controller(req,res){
     if(user_data){
         const is_user = await bcrypt.compare(password,user_data.password);
         if(is_user){
-            const token = jwt.sign({name:name},secretcode);
+            const token = jwt.sign({email:user_data.email},secretcode);
            
             res.cookie('token', token, {
                 httpOnly: true,  
